@@ -2,18 +2,17 @@ with trip as (
 
     select
         RIDE_ID,
-        RIDEABLE_TYPE,
         date(to_timestamp(STARTED_AT)) as trip_date,
-        START_STATIO_ID as station_id,
+        START_STATION_ID as station_id,
         END_STATION_ID,
-        MEMBER_CSUAL,
+        MEMBER_CASUAL,
         timestampdiff(
             second,
             to_timestamp(STARTED_AT),
             to_timestamp(ENDED_AT)
         ) as trip_duration_seconds
 
-    from {{ source('demo', 'bike') }}
+    from {{ ref('stg_bike') }}
 
     
 
